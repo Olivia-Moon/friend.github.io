@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>友谊长存 | 致最好的我们</title>
+    <style>
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 页面背景：粉色系玫瑰 + 浅粉渐变 */
+        body {
+            min-height: 100vh;
+            background: url('https://img.lovepik.com/background/20230816/medium/lovepik-pink-rose-flower-background-image_401920200.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #ffe6f2;
+            background-blend-mode: soft-light;
+            overflow: hidden;
+            font-family: "Microsoft YaHei", "SimHei", sans-serif;
+        }
+
+        /* 握手样式：替换原爱心，粉色系握手图标 */
+        .handshake {
+            position: absolute;
+            font-size: 40px;
+            /* 使用Unicode握手符号，更贴合友谊主题 */
+            content: "🤝";
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.9;
+            text-shadow: 0 0 15px #ff6699, 0 0 25px #ff6699;
+            transform: scale(1);
+        }
+
+        /* 握手漂浮动画（调整适配握手图标） */
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.7);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.9;
+            }
+            90% {
+                opacity: 0.9;
+            }
+            100% {
+                transform: translateY(-50px) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* 满屏文字样式：白色文字 + 粉色发光 */
+        .text-item {
+            position: absolute;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff6699, 0 0 20px #ff6699;
+            animation: textMove 15s linear infinite;
+            opacity: 0.9;
+        }
+
+        /* 文字滚动动画 */
+        @keyframes textMove {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+            }
+            100% {
+                transform: translate(0, -100px) rotate(360deg);
+            }
+        }
+
+        /* 中心友谊文案：大红色文字 */
+        .center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff3366, 0 0 30px #ff3366;
+        }
+
+        .center-text h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .center-text p {
+            font-size: 24px;
+            line-height: 1.8;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 中心友谊文案 -->
+    <div class="center-text">
+        <h1>友谊长存 🤝</h1>
+    </div>
+
+    <script>
+        // 名字列表
+        const nameList = ['张静怡', '张心悦', '周佳武', '冯致君'];
+
+        // 1. 创建满屏的白色名字文字
+        function createTextItems() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            const totalText = 300;
+
+            for (let i = 0; i < totalText; i++) {
+                const text = document.createElement('div');
+                text.className = 'text-item';
+                text.innerText = nameList[Math.floor(Math.random() * nameList.length)];
+                
+                text.style.left = Math.random() * screenWidth + 'px';
+                text.style.top = Math.random() * screenHeight + 'px';
+                text.style.fontSize = (18 + Math.random() * 12) + 'px';
+                text.style.animationDuration = (10 + Math.random() * 15) + 's';
+                text.style.animationDelay = Math.random() * 10 + 's';
+                text.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+                document.body.appendChild(text);
+            }
+        }
+
+        // 2. 创建飘动的握手图标（替换原爱心）
+        function createHandshakes() {
+            const screenWidth = window.innerWidth;
+            const totalHandshakes = 60;
+
+            for (let i = 0; i < totalHandshakes; i++) {
+                const handshake = document.createElement('div');
+                handshake.className = 'handshake';
+                // 设置握手Unicode符号
+                handshake.innerText = "🤝";
+                
+                handshake.style.left = Math.random() * screenWidth + 'px';
+                handshake.style.animationDuration = (5 + Math.random() * 10) + 's';
+                handshake.style.animationDelay = Math.random() * 10 + 's';
+                // 随机调整握手大小
+                handshake.style.fontSize = (30 + Math.random() * 20) + 'px';
+
+                document.body.appendChild(handshake);
+            }
+        }
+
+        // 页面加载完成后执行
+        window.onload = function() {
+            createTextItems();
+            createHandshakes();
+
+            // 持续创建新的握手图标
+            setInterval(() => {
+                const handshake = document.createElement('div');
+                handshake.className = 'handshake';
+                handshake.innerText = "🤝";
+                const screenWidth = window.innerWidth;
+                handshake.style.left = Math.random() * screenWidth + 'px';
+                handshake.style.animationDuration = (5 + Math.random() * 10) + 's';
+                handshake.style.fontSize = (30 + Math.random() * 20) + 'px';
+                document.body.appendChild(handshake);
+
+                // 移除超出屏幕的握手图标
+                setTimeout(() => {
+                    handshake.remove();
+                }, 8000);
+            }, 500);
+        };
+    </script>
+</body>
+</html>
